@@ -11,7 +11,6 @@ export enum Collections {
 	Editors = "editors",
 	Entries = "entries",
 	Hooks = "hooks",
-	ListIDs = "listIDs",
 	Torrents = "torrents",
 	Users = "users",
 }
@@ -52,12 +51,18 @@ export type AuditlogRecord<Tdata = unknown, Toriginal = unknown> = {
 
 export enum DeadDataTrackerOptions {
 	"Nyaa" = "Nyaa",
-	"AnimeBytes" = "AnimeBytes",
+	"PT" = "PT",
 	"AniDex" = "AniDex",
 	"RuTracker" = "RuTracker",
 	"AnimeTosho" = "AnimeTosho",
 	"BeyondHD" = "BeyondHD",
+	"Aither" = "Aither",
+	"Blutopia" = "Blutopia",
+	"HDBits" = "HDBits",
+	"BroadcastTheNet" = "BroadcastTheNet",
+	"PassThePopcorn" = "PassThePopcorn",
 	"Other" = "Other",
+	"OtherPrivate" = "OtherPrivate",
 }
 export type DeadDataRecord = {
 	infoHash: string
@@ -90,18 +95,20 @@ export type HooksRecord = {
 	event: HooksEventOptions
 }
 
-export type ListIDsRecord = {
-	alID: number
-}
-
 export enum TorrentsTrackerOptions {
 	"Nyaa" = "Nyaa",
-	"AnimeBytes" = "AnimeBytes",
+	"PT" = "PT",
 	"AniDex" = "AniDex",
 	"RuTracker" = "RuTracker",
 	"AnimeTosho" = "AnimeTosho",
 	"BeyondHD" = "BeyondHD",
+	"Aither" = "Aither",
+	"Blutopia" = "Blutopia",
+	"HDBits" = "HDBits",
+	"BroadcastTheNet" = "BroadcastTheNet",
+	"PassThePopcorn" = "PassThePopcorn",
 	"Other" = "Other",
+	"OtherPrivate" = "OtherPrivate",
 }
 export type TorrentsRecord<Tfiles = { length: number, name: string }[]> = {
 	dualAudio?: boolean
@@ -125,7 +132,6 @@ export type DeadDataResponse<Texpand = unknown> = Required<DeadDataRecord> & Bas
 export type EditorsResponse<Texpand = unknown> = Required<EditorsRecord> & BaseSystemFields<Texpand>
 export type EntriesResponse<Texpand = unknown> = Required<EntriesRecord> & BaseSystemFields<Texpand>
 export type HooksResponse<Texpand = unknown> = Required<HooksRecord> & BaseSystemFields<Texpand>
-export type ListIDsResponse<Texpand = unknown> = Required<ListIDsRecord> & BaseSystemFields<Texpand>
 export type TorrentsResponse<Tfiles = { length: number, name: string }[], Texpand = unknown> = Required<TorrentsRecord<Tfiles>> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
@@ -137,7 +143,6 @@ export type CollectionRecords = {
 	editors: EditorsRecord
 	entries: EntriesRecord
 	hooks: HooksRecord
-	listIDs: ListIDsRecord
 	torrents: TorrentsRecord
 	users: UsersRecord
 }
@@ -148,7 +153,6 @@ export type CollectionResponses = {
 	editors: EditorsResponse
 	entries: EntriesResponse
 	hooks: HooksResponse
-	listIDs: ListIDsResponse
 	torrents: TorrentsResponse
 	users: UsersResponse
 }
@@ -162,7 +166,6 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: 'editors'): RecordService<EditorsResponse>
 	collection(idOrName: 'entries'): RecordService<EntriesResponse>
 	collection(idOrName: 'hooks'): RecordService<HooksResponse>
-	collection(idOrName: 'listIDs'): RecordService<ListIDsResponse>
 	collection(idOrName: 'torrents'): RecordService<TorrentsResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>
 }

@@ -1,8 +1,9 @@
 <script lang='ts'>
-  import type { TorrentsResponse, TorrentsTrackerOptions } from '$lib/pocketbase/generated-types.js'
+  import { type TorrentsResponse, TorrentsTrackerOptions } from '$lib/pocketbase/generated-types.js'
   import { fastPrettyBytes } from '$lib/util'
   import * as Card from '$lib/components/ui/card'
   import { Button } from '$lib/components/ui/button'
+  import { PRIVATE_TRACKERS } from '$lib/torrent'
 
   export let torrents: TorrentsResponse[]
   export let releaseGroup: string
@@ -21,13 +22,19 @@
   }
 
   const icons: Record<TorrentsTrackerOptions, string> = {
-    AnimeBytes: '/ab.ico',
+    PT: '/ab.ico',
     AniDex: '/anidex.ico',
     AnimeTosho: '/tosho.ico',
     Nyaa: '/cat.png',
     RuTracker: '/rutracker.ico',
     BeyondHD: '/bhd.ico',
-    Other: ''
+    Aither: '/aith.ico',
+    Blutopia: '/blu.ico',
+    HDBits: '/hdb.png',
+    BroadcastTheNet: '/btn.ico',
+    PassThePopcorn: 'ptp.ico',
+    Other: '/favicon.png',
+    OtherPrivate: '/favicon.png'
   }
 </script>
 
@@ -55,12 +62,14 @@
     <Card.Footer>
       <div class='grid grid-cols-2 gap-4 w-full'>
         {#each torrents as torrent}
-          <Button size='sm' variant='outline' class='px-4' href={torrent.url} target='_blank'>
-            {#if icons[torrent.tracker]}
-              <img src={icons[torrent.tracker]} alt={torrent.tracker} class='w-3 h-3 me-2' />
-            {/if}
-            {torrent.tracker}
-          </Button>
+          {#if !PRIVATE_TRACKERS.includes(torrent.tracker)}
+            <Button size='sm' variant='outline' class='px-4' href={torrent.url} target='_blank'>
+              {#if icons[torrent.tracker]}
+                <img src={icons[torrent.tracker]} alt={torrent.tracker} class='w-3 h-3 me-2' />
+              {/if}
+              {torrent.tracker}
+            </Button>
+          {/if}
         {/each}
       </div>
     </Card.Footer>
